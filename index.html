@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>M.A Muhit's Website</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .left-panel {
+      width: 300px;
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-right: 1px solid #333;
+      overflow-y: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+    }
+
+    .left-panel img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #4caf50;
+      display: block;
+      margin: 0 auto 15px;
+    }
+
+    .info {
+      font-family: 'Courier New', monospace;
+      margin-bottom: 20px;
+    }
+
+    .info p {
+      margin: 6px 0;
+      font-size: 14px;
+    }
+
+    .info p span {
+      font-weight: bold;
+    }
+
+    .box {
+      background-color: #2a2a2a;
+      border: 1px solid #333;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .box:hover {
+      background-color: #333;
+    }
+
+    .sub-boxes {
+      display: none;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .sub-box {
+      background-color: #2c2c2c;
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      flex: 1 1 120px;
+      text-align: center;
+    }
+
+    .sub-box:hover {
+      background-color: #3a3a3a;
+      transform: scale(1.03);
+    }
+
+    .main-content {
+      margin-left: 300px;
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .right-panel {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .right-panel img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .left-panel {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="left-panel">
+    <img src="https://i.imgur.com/NPOMLTT.jpg" alt="M.A Muhit" />
+    <div class="info">
+      <p><span>Name:</span> M.A Muhit</p>
+      <p><span>Class:</span> 10</p>
+      <p><span>Roll:</span> 211</p>
+      <p><span>Form:</span> Esamoti</p>
+      <p><span>House:</span> Shahidullah</p>
+      <p><span>Contact:</span> +8801725059506</p>
+    </div>
+
+    <div class="box" onclick="toggleBox('achievements')">🏆 Achievements</div>
+    <div id="achievements" class="sub-boxes">
+      <div class="sub-box" onclick="showContent('International')">🌐 International</div>
+      <div class="sub-box" onclick="showContent('National')">🇧🇩 National</div>
+      <div class="sub-box" onclick="showContent('Division')">📍 Division</div>
+      <div class="sub-box" onclick="showContent('District')">🏛 District</div>
+      <div class="sub-box" onclick="showContent('Upazila')">🏞 Upazila</div>
+      <div class="sub-box" onclick="showContent('School')">🏫 School</div>
+    </div>
+
+    <div class="box" onclick="toggleBox('skills')">💡 Skills</div>
+    <div id="skills" class="sub-boxes">
+      <div class="sub-box" onclick="showContent('Coding')">👨‍💻 Coding</div>
+      <div class="sub-box" onclick="showContent('Design')">🎨 Design</div>
+      <div class="sub-box" onclick="showContent('Leadership')">🧭 Leadership</div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="right-panel" id="contentBox">
+      <img src="placeholder.jpg" alt="Content Image" id="contentImage">
+      <p id="contentText">Click on a level or skill to see more details here.</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleBox(id) {
+      const box = document.getElementById(id);
+      box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function showContent(item) {
+      const contentBox = document.getElementById('contentBox');
+      const contentText = document.getElementById('contentText');
+      const contentImage = document.getElementById('contentImage');
+
+      const data = {
+        'International': {
+          text: "Represented my country in an international competition. It was a great learning experience.",
+          img: "https://imgur.com/a/qSr0RsN"
+        },
+        'National': {
+          text: "Won first place in the National ICT Olympiad.",
+          img: "national.jpg"
+        },
+        'Division': {
+          text: "Secured 2nd place in Division-level Science Fair.",
+          img: "division.jpg"
+        },
+        'District': {
+          text: "Participated and won in District quiz competition.",
+          img: "district.jpg"
+        },
+        'Upazila': {
+          text: "Achieved 1st rank in Upazila level math olympiad.",
+          img: "upazila.jpg"
+        },
+        'School': {
+          text: "Top student in school-wide computer project showcase.",
+          img: "school.jpg"
+        },
+        'Coding': {
+          text: "Proficient in HTML, CSS, JavaScript. Learning Python and C++.",
+          img: "coding.jpg"
+        },
+        'Design': {
+          text: "Basic skills in UI/UX and graphic design using Canva and Figma.",
+          img: "design.jpg"
+        },
+        'Leadership': {
+          text: "Served as class monitor and SPL in Scouts. Good at managing teams.",
+          img: "leadership.jpg"
+        }
+      };
+
+      contentImage.src = data[item]?.img || "placeholder.jpg";
+      contentText.innerText = data[item]?.text || "Details coming soon...";
+      contentBox.style.display = "block";
+
+      contentBox.style.animation = 'none';
+      void contentBox.offsetWidth;
+      contentBox.style.animation = 'fadeIn 0.5s ease';
+    }
+  </script>
+
+</body>
+</html>
