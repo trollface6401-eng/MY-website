@@ -29,8 +29,8 @@
     }
 
     .left-panel img {
-      width: 130px;
-      height: 130px;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid #4caf50;
@@ -106,10 +106,15 @@
     }
 
     .right-panel img {
-      max-width: 100%;
-      height: auto;
+      width: 700px;
+      height: 350px;
       border-radius: 10px;
-      margin-bottom: 10px;
+      object-fit: cover;
+      margin-bottom: 5px;
+    }
+
+    .right-panel p {
+      margin-bottom: 20px;
     }
 
     @keyframes fadeIn {
@@ -137,7 +142,7 @@
 <body>
 
   <div class="left-panel">
-    <img src="https://i.imgur.com/NPOMLTT.jpg" alt="M.A Muhit" />
+    <img src="my picture.jpg" alt="M.A Muhit" />
     <div class="info">
       <p><span>Name:</span> M.A Muhit</p>
       <p><span>Class:</span> 10</p>
@@ -160,15 +165,14 @@
     <div class="box" onclick="toggleBox('skills')">💡 Skills</div>
     <div id="skills" class="sub-boxes">
       <div class="sub-box" onclick="showContent('Coding')">👨‍💻 Coding</div>
-      <div class="sub-box" onclick="showContent('Design')">🎨 Design</div>
+      <div class="sub-box" onclick="showContent('English Spoken')">🗣 English Spoken</div>
       <div class="sub-box" onclick="showContent('Leadership')">🧭 Leadership</div>
     </div>
   </div>
 
   <div class="main-content">
     <div class="right-panel" id="contentBox">
-      <img src="placeholder.jpg" alt="Content Image" id="contentImage">
-      <p id="contentText">Click on a level or skill to see more details here.</p>
+      <div id="contentCombined"></div>
     </div>
   </div>
 
@@ -180,52 +184,71 @@
 
     function showContent(item) {
       const contentBox = document.getElementById('contentBox');
-      const contentText = document.getElementById('contentText');
-      const contentImage = document.getElementById('contentImage');
+      const contentCombined = document.getElementById('contentCombined');
+      contentCombined.innerHTML = '';
 
       const data = {
         'International': {
-          text: "Represented my country in an international competition. It was a great learning experience.",
-          img: "https://imgur.com/a/qSr0RsN"
+          texts: ["Being Safe Online course what was held in 19th October 2023. I was awarded this certificate as I completed the course successfully."],
+          images: ["Being safe online certificate.jpg"]
         },
         'National': {
-          text: "Won first place in the National ICT Olympiad.",
-          img: "national.jpg"
+          texts: [
+            "Achieved the President's Scout Award, the highest award of Bangladesh Scouts as the only person from my school. I ranked 11th nationally and will be awarded by the President of Bangladesh.",
+            "Achieved the Community Development Award, the 2nd highest award of Bangladesh Scouts in 2024 and received it from Mir Mahfujur Rahman Singdho, Member Secretary of Bangladesh Scouts."
+          ],
+          images: ["PS result sheet.jpg", "CD certificate.jpg"]
         },
         'Division': {
-          text: "Secured 2nd place in Division-level Science Fair.",
-          img: "division.jpg"
+          texts: ["N/A"],
+          images: ["division.jpg"]
         },
         'District': {
-          text: "Participated and won in District quiz competition.",
-          img: "district.jpg"
+          texts: ["Participated in the District Robotics Olympiad preparation camp named Robotics Activation Programme."],
+          images: ["roboticis participation certificate.jpg"]
         },
         'Upazila': {
-          text: "Achieved 1st rank in Upazila level math olympiad.",
-          img: "upazila.jpg"
+          texts: ["A crest from the Upazila Scouts was given to me as the only person to get the award in 2023 from the Upazila."],
+          images: ["upozilla.jpg"]
         },
         'School': {
-          text: "Top student in school-wide computer project showcase.",
-          img: "school.jpg"
+          texts: ["Participated as the commander of the school parade scout group."],
+          images: ["anual sports certificate.jpg"]
         },
         'Coding': {
-          text: "Proficient in HTML, CSS, JavaScript. Learning Python and C++.",
-          img: "coding.jpg"
+          texts: [
+            "Learned HTML, CSS, C and currently learning Python and JavaScript.",
+            "",
+            ""
+          ],
+          images: ["HTML certificate.jpg", "CSS certificate.jpg", "c certigicate.jpg"]
         },
-        'Design': {
-          text: "Basic skills in UI/UX and graphic design using Canva and Figma.",
-          img: "design.jpg"
+        'English Spoken': {
+          texts: ["Fluent in English speaking and communication."],
+          images: ["english spoken certificate.jpg"]
         },
         'Leadership': {
-          text: "Served as class monitor and SPL in Scouts. Good at managing teams.",
-          img: "leadership.jpg"
+          texts: ["Served as class monitor and SPL in Scouts."],
+          images: ["scots.jpg"]
         }
       };
 
-      contentImage.src = data[item]?.img || "placeholder.jpg";
-      contentText.innerText = data[item]?.text || "Details coming soon...";
-      contentBox.style.display = "block";
+      if (data[item]) {
+        for (let i = 0; i < data[item].images.length; i++) {
+          const img = document.createElement('img');
+          img.src = data[item].images[i];
+          img.alt = item;
+          contentCombined.appendChild(img);
 
+          const p = document.createElement('p');
+          p.innerText = data[item].texts[i] || '';
+          contentCombined.appendChild(p);
+        }
+      } else {
+        contentCombined.innerHTML = "<p>Details coming soon...</p>";
+      }
+
+      contentBox.style.display = "block";
       contentBox.style.animation = 'none';
       void contentBox.offsetWidth;
       contentBox.style.animation = 'fadeIn 0.5s ease';
